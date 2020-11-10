@@ -1,0 +1,39 @@
+<!-- <p>quote works!</p> -->
+<link href="https://fonts.googleapis.com/css2?family=Gabriela&display=swap" rel="stylesheet">
+
+<body>
+  <div class="container">
+    <div class="title">
+      <h1>Quotes-App</h1>
+    </div>
+
+    <div class="row">
+      <div class="col-md-5">
+        <div *ngFor='let quote of quotes;let i = index'>
+          <div class="card" id="top-card">
+            <h6 appStrikethrough>{{quote.quoteName}} due on {{quote.completeDate|date|uppercase}}</h6>
+           <small><button (click)='toggleDetails(i)' class="btn btn-light">More Info</button></small>
+            
+
+            <app-quote-detail *ngIf='quote.showDescription' [quote]='quote' (isComplete)='deleteQuote($event,i)'>
+            </app-quote-detail>
+          </div>
+          <hr>
+          <button (click)="upVote(i)" >Like {{quote.upvote}}</button>
+          <button (click)="downVote(i)" >Dislike {{quote.downvote}}</button>
+          <h2 *ngIf="quote === highestUpVote()" appHighUpvote><strong>Top Quote.</strong> </h2>
+
+
+        </div>
+      </div>
+     
+
+      <div class="col-md-6">
+        <app-quote-form (addQuote)="addNewQuote($event)"></app-quote-form>
+      </div>
+      
+    </div>
+  </div>
+</body>
+
+
